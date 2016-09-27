@@ -1,0 +1,27 @@
+- name: Remove web related system packages
+  apt: pkg={{ item }} state=absent
+  with_items:
+    - uwsgi
+    - uwsgi-plugin-python
+    - supervisor
+  become: True
+
+- name: "Install watchdog for galaxy"
+  pip: name=watchdog virtualenv={{ galaxy_venv_dir }} virtualenv_command="{{ pip_virtualenv_command | default( 'virtualenv' ) }}"
+  become: True
+  become_user: "{{ galaxy_user_name }}"
+
+- name: "Install uwsgi for galaxy"
+  pip: name=uwsgi virtualenv={{ galaxy_venv_dir }} virtualenv_command="{{ pip_virtualenv_command | default( 'virtualenv' ) }}"
+  become: True
+  become_user: "{{ galaxy_user_name }}"
+
+- name: "Create supervisor virtualenv"
+  pip: name=pip virtualenv={{ supervisor_venv_dir }} virtualenv_command="{{ pip_virtualenv_command | default( 'virtualenv' ) }}"
+  become: True
+  become_user: "{{ galaxy_user_name }}"
+
+- name: "Install supervisor"
+  pip: name=supervisor virtualenv={{ supervisor_venv_dir }} virtualenv_command="{{ pip_virtualenv_command | default( 'virtualenv' ) }}"
+  become: True
+  become_user: "{{ galaxy_user_name }}"

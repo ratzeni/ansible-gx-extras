@@ -1,0 +1,25 @@
+- name: "Create supervisor directories"
+  file: state=directory path={{ item }} owner={{ galaxy_user_name }} group=users
+  with_items:
+    - "{{ supervisor_venv_dir }}"
+    - "{{ supervisor_config_dir }}"
+    - "{{ galaxy_user_home }}/bin"
+  become: yes
+
+- include: install_packages.yml
+  when: gx_extras_install_packages
+
+- include: supervisor.yml
+  when: gx_extras_config_supervisor
+
+- include: bash.yml
+  when: gx_extras_config_supervisor
+
+- include: nginx.yml
+  when: gx_extras_config_nginx
+
+- include: common_startup.yml
+  when: gx_extras_common_startup
+
+- include: frontpage.yml
+  when: gx_extras_install_frontpage

@@ -1,0 +1,17 @@
+#- name: Create nginx upload_store dir
+#  file: state=directory path={{ nginx_upload_store_path }}
+
+- name: Place configuration files
+  template: >
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=root group=root mode=0600
+  with_items:
+    - { src: 'nginx_uwsgi.conf.j2',       dest: '{{ nginx_conf_directory }}/uwsgi.conf' }
+    - { src: 'nginx.conf.j2',             dest: '{{ nginx_conf_path }}' }
+  notify: restart nginx
+  become: True
+
+- name: Enable nginx
+  service: name=nginx enabled=yes
+  become: True

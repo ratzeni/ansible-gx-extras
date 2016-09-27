@@ -1,0 +1,9 @@
+- name: copy frontpage files
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0644
+  with_items:
+    - { src: "{{ frontpage_welcome }}", dest: "{{ galaxy_server_dir }}/static" }
+    - { src: "{{ frontpage_footer }}", dest: "{{ galaxy_server_dir }}/static/images" }
+    - { src: "{{ frontpage_logo }}", dest: "{{ galaxy_server_dir }}/static/images" }
+  become: True
+  become_user: "{{ galaxy_user_name }}"
+

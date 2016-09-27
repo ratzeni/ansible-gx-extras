@@ -1,0 +1,4 @@
+- name: "Run common_startup.sh"
+  shell: "cd {{ galaxy_server_dir }} && scripts/common_startup.sh"
+  become: True
+  become_user: "{{ galaxy_user_name }}"

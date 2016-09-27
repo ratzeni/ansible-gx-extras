@@ -1,0 +1,45 @@
+gx_extras_install_packages: true
+gx_extras_config_supervisor: true
+gx_extras_config_nginx: true
+gx_extras_config_nginx_upload: false
+gx_extras_common_startup: true
+gx_extras_install_frontpage: true
+
+
+supervisor_venv_dir: /opt/galaxy/supervisor/venv
+supervisor_config_dir: /opt/galaxy/supervisor/config
+
+supervisor_webserver: true
+supervisor_webserver_port: "0.0.0.0:9001"
+supervisor_webserver_username: null
+supervisor_webserver_password: changeme
+
+supervisor_galaxy_startsecs: 20
+# had to increase retries to ensure the postgres database is available,
+# wasn't needed in the past.
+supervisor_galaxy_startretries: 15
+
+uwsgi_threads: 2
+galaxy_web_processes: 2
+galaxy_handler_processes: 2
+
+galaxy_uwsgi: true
+uwsgi_log: "{{ galaxy_log_dir }}/uwsgi.log"
+uwsgi_port: 4001
+
+bash_aliases_path: "{{ galaxy_user_home}}/.bash_aliases"
+
+# Nginx configuration.
+nginx_conf_path: /etc/nginx/nginx.conf
+nginx_conf_directory: /etc/nginx/conf.d
+nginx_upload_store_path: "/tmp/nginx_upload_store"
+
+# Use nginx_*_location variables to control serving apps at subdirectories.
+# If galaxy should be served at subdirectory (e.g. example.com/galaxy) set nginx_galaxy_location: /galaxy
+# If all apps should be served on a common subdirectory, use nginx_prefix_location: /your_common_dir
+nginx_prefix_location: ""
+nginx_galaxy_location: "{{ nginx_prefix_location }}"
+
+frontpage_footer: footer.png
+frontpage_logo: logo.png
+frontpage_welcome: welcome.html

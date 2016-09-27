@@ -1,0 +1,7 @@
+- name: Copy bash aliases
+  template: src={{ item.src }} dest={{ item.dst }} mode=0744
+  with_items:
+    - { src: supervisord.j2, dst: "{{ galaxy_user_home }}/bin/supervisord" }
+    - { src: supervisorctl.j2, dst: "{{ galaxy_user_home }}/bin/supervisorctl" }
+  become: True
+  become_user: "{{ galaxy_user_name }}"

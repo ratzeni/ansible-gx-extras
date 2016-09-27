@@ -1,0 +1,4 @@
+- name: Create Galaxy configuration file
+  template: src=supervisor.conf.j2 dest={{ supervisor_config_dir }}/supervisor.conf
+  become: True
+  become_user: "{{ galaxy_user_name }}"
