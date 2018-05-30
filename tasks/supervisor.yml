@@ -5,6 +5,8 @@
 
 - name: Start Supervisord
   command: supervisord
+  args:
+    chdir: "{{ galaxy_user_home }}"
   become: True
   become_user: "{{ galaxy_user_name }}"
 
