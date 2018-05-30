@@ -2,3 +2,9 @@
   template: src=supervisor.conf.j2 dest={{ supervisor_config_dir }}/supervisor.conf
   become: True
   become_user: "{{ galaxy_user_name }}"
+
+- name: Start Supervisord
+  command: supervisord
+  become: True
+  become_user: "{{ galaxy_user_name }}"
+
