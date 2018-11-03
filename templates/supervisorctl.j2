@@ -1,4 +1,3 @@
 #!/bin/bash
 
-source {{ supervisor_venv_dir }}/bin/activate
-supervisorctl -c {{ supervisor_config_dir }}/supervisor.conf $@
+{{ supervisor_venv_dir }}/bin/supervisorctl -c {{ supervisor_config_dir }}/supervisor.conf $@

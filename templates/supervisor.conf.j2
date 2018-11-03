@@ -16,7 +16,7 @@ password={{ supervisor_webserver_password }}
 {% endif %}
 {% endif %}
 
-[program:galaxy_web]
+[program:web]
 command         = {{ galaxy_venv_dir }}/bin/uwsgi --virtualenv {{ galaxy_venv_dir }} --ini-paste {{ galaxy_config_file }} --logdate --master --processes {{ galaxy_web_processes }} --threads {{ uwsgi_threads }} --logto {{ uwsgi_log }} --socket 127.0.0.1:4001 --pythonpath lib --stats 127.0.0.1:9191
 directory       = {{ galaxy_server_dir }}
 umask           = 022
@@ -42,4 +42,4 @@ user            = {{ galaxy_user_name }}
 startretries    = {{ supervisor_galaxy_startretries }}
 
 [group:galaxy]
-programs = handler, galaxy_web
+programs = handler, web
